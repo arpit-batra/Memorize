@@ -13,26 +13,31 @@ struct ContentView: View {
     
     var body: some View {
         HStack {
-            Card(isFlipped: true)
+            Card(isFaceUp: true)
             Card()
             Card()
             Card()
-        }
+        }.foregroundColor(.orange)
         .padding()
     }
     
 }
 
 struct Card : View {
-    var isFlipped: Bool = false
+    @State var isFaceUp = false
     var body: some View{
         ZStack{
-            if(isFlipped){
-                RoundedRectangle(cornerSize: /*@START_MENU_TOKEN@*/CGSize(width: 20, height: 10)/*@END_MENU_TOKEN@*/)
+            let base = RoundedRectangle(cornerRadius: 12)
+            if(isFaceUp){
+                base.fill(.white)
+                base.stroke(lineWidth: 2)
+                Text("🥹").font(.largeTitle)
             }else{
-                RoundedRectangle(cornerSize: /*@START_MENU_TOKEN@*/CGSize(width: 20, height: 10)/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                base.fill()
             }
-            Text("🥹")
+            
+        }.onTapGesture() {
+            isFaceUp.toggle()
         }
     }
 }
